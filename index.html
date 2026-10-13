@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Tuần Hoàn Hóa Học</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Three.js cho mô hình 3D cấu hình electron -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>BẢNG TUẦN HOÀN HÓA HỌC</h1>
+            <p class="subtitle">Nguồn: IUPAC. Atomic Weights of the Elements 2019</p>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm nguyên tố (Tên, Ký hiệu, Số hiệu)...">
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Bộ lọc nhóm nguyên tố -->
+        <section class="filter-section" id="filterSection">
+            <button class="filter-btn active" data-category="all">Tất cả</button>
+            <button class="filter-btn" data-category="alkali">Kim loại kiềm</button>
+            <button class="filter-btn" data-category="alkaline-earth">Kim loại kiềm thổ</button>
+            <button class="filter-btn" data-category="transition">Kim loại chuyển tiếp</button>
+            <button class="filter-btn" data-category="post-transition">Kim loại sau chuyển tiếp</button>
+            <button class="filter-btn" data-category="metalloid">Á kim</button>
+            <button class="filter-btn" data-category="reactive-nonmetal">Phi kim loại</button>
+            <button class="filter-btn" data-category="halogen">Halogen</button>
+            <button class="filter-btn" data-category="noble-gas">Khí hiếm</button>
+            <button class="filter-btn" data-category="lanthanide">Lantan</button>
+            <button class="filter-btn" data-category="actinide">Actin</button>
+        </section>
+
+        <!-- Bảng tuần hoàn dạng lưới 18 cột -->
+        <div class="periodic-table-wrapper">
+            <div class="periodic-table" id="periodicTable"></div>
+        </div>
+    </main>
+
+    <!-- Modal Chi Tiết Nguyên Tố -->
+    <div class="modal-overlay" id="elementModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <div class="modal-grid">
+                <!-- Thông tin chi tiết (Cỡ chữ to, rõ ràng) -->
+                <div class="modal-info-pane">
+                    <div class="modal-header-info">
+                        <span class="modal-number" id="modalNumber"></span>
+                        <h2 id="modalName"></h2>
+                        <span class="modal-symbol" id="modalSymbol"></span>
+                    </div>
+                    <div class="info-list">
+                        <div class="info-item"><strong>Khối lượng nguyên tử:</strong> <span id="modalMass"></span></div>
+                        <div class="info-item"><strong>Cấu hình electron:</strong> <span id="modalConfig"></span></div>
+                        <div class="info-item"><strong>Cấu hình rút gọn:</strong> <span id="modalNobleConfig"></span></div>
+                        <div class="info-item"><strong>Độ âm điện (Pauling):</strong> <span id="modalElectronegativity"></span></div>
+                        <div class="info-item"><strong>Số oxi hóa phổ biến:</strong> <span id="modalOxidation"></span></div>
+                        <div class="info-item"><strong>Hóa trị:</strong> <span id="modalValence"></span></div>
+                        <div class="info-item"><strong>Các đồng vị bền:</strong> <span id="modalIsotopes"></span></div>
+                    </div>
+                </div>
+
+                <!-- Cửa sổ Mô hình 3D -->
+                <div class="modal-3d-pane" id="modal3dPane">
+                    <button class="fullscreen-btn" id="fullscreenBtn" title="Phóng to toàn màn hình">⛶</button>
+                    <div class="pane-header">
+                        <span class="pane-title">Mô hình 3D Lớp Electron (Bohr)</span>
+                    </div>
+                    <div class="canvas-container" id="canvasContainer">
+                        <!-- Three.js Canvas render tại đây -->
+                    </div>
+                    <p class="canvas-hint">*(Dùng chuột kéo để xoay, lăn chuột phóng to/thu nhỏ)*</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
